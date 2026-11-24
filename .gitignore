@@ -1,0 +1,25 @@
+# Gradle and Android build output
+.gradle/
+.kotlin/
+build/
+local.properties
+captures/
+*.apk
+*.aab
+
+# Signing material and local secrets never belong in this public repo
+*.jks
+*.keystore
+*.p12
+keystore.properties
+*.env
+
+# Editors
+.idea/
+*.iml
+*.swp
+.DS_Store
+
+# Python (tools/)
+__pycache__/
+*.pyc
