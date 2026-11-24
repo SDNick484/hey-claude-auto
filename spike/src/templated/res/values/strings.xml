@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Claude T</string>
+    <string name="flavor_summary">Templated: a Car App Library screen, plus notifications.</string>
+</resources>

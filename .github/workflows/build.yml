@@ -1,0 +1,54 @@
+name: build
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  debug-apk:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880 # v6.3.0
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: gradle
+
+      # The wrapper jar is the one binary in this repo. Check it is a genuine Gradle release.
+      - uses: gradle/actions/wrapper-validation@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
+
+      - name: Test, lint and build the debug APKs
+        run: >
+          ./gradlew --no-daemon --console=plain
+          :spike:testTemplatedDebugUnitTest :spike:testNotifDebugUnitTest
+          :spike:lintTemplatedDebug :spike:lintNotifDebug
+          :spike:assembleDebug
+
+      # This is how the app reaches the phone: download the artifact and adb install it.
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: hey-claude-m0-debug-apks
+          path: spike/build/outputs/apk/*/debug/*.apk
+          if-no-files-found: error
+          retention-days: 30
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: failure()
+        with:
+          name: reports
+          path: |
+            spike/build/reports/
+            spike/build/test-results/
+          if-no-files-found: ignore
+          retention-days: 7
