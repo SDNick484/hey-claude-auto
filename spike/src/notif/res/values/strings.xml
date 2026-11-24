@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Claude N</string>
+    <string name="flavor_summary">Notifications only: no Car App Library code.</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A templated messaging app must declare both capabilities. -->
+<automotiveApp>
+    <uses name="notification" />
+    <uses name="template" />
+</automotiveApp>

@@ -1,0 +1,18 @@
+[versions]
+agp = "9.5.2"
+androidx-core = "1.19.1"
+# 1.7.0 is the newest stable release. It is the first with the non-experimental
+# messaging model (ConversationItem, CarMessage) used by templated messaging.
+androidx-car-app = "1.7.0"
+junit = "4.13.2"
+robolectric = "4.18.1"
+
+[libraries]
+androidx-core = { module = "androidx.core:core", version.ref = "androidx-core" }
+androidx-car-app = { module = "androidx.car.app:app", version.ref = "androidx-car-app" }
+androidx-car-app-testing = { module = "androidx.car.app:app-testing", version.ref = "androidx-car-app" }
+junit = { module = "junit:junit", version.ref = "junit" }
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
